@@ -1,0 +1,68 @@
+//
+// build.gradle in TeamCode
+//
+// Most of the definitions for building your module reside in a common, shared
+// file 'build.common.gradle'. Being factored in this way makes it easier to
+// integrate updates to the FTC into your code. If you really need to customize
+// the build definitions, you can place those customizations in this file, but
+// please think carefully as to whether such customizations are really necessary
+// before doing so.
+
+
+// Custom definitions may go here
+
+// Include common definitions from above.
+apply from: '../build.common.gradle'
+apply from: '../build.dependencies.gradle'
+
+android {
+    defaultConfig {
+        multiDexEnabled true
+    }
+    namespace = 'org.firstinspires.ftc.teamcode'
+    androidResources {
+        noCompress 'tflite'
+}
+    packagingOptions {
+        jniLibs {
+            pickFirsts += ['**/*.so']
+        }
+        jniLibs.useLegacyPackaging true
+    }
+}
+dependencies {
+    implementation project(':FtcRobotController')
+    annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
+}
+//t265 tracking
+repositories {
+    maven { url = "https://maven.catboy.camp" }
+    maven { url = 'https://maven.brott.dev/' }
+}
+dependencies {
+    implementation 'org.openftc:easyopencv:1.6.2'
+}
+dependencies {
+
+    implementation 'com.acmerobotics.roadrunner:core:0.5.6'
+}
+dependencies {
+        testImplementation 'junit:junit:4.13.2'
+
+        implementation 'com.spartronics4915.lib:ftc265:2.1.9'
+
+        implementation 'org.tensorflow:tensorflow-lite:2.7.0'
+        implementation 'org.tensorflow:tensorflow-lite-gpu:2.3.0'
+
+        implementation "androidx.test:core:1.5.0"
+
+        implementation 'org.ftclib.ftclib:core:2.0.1' // core
+
+        implementation 'com.acmerobotics.dashboard:dashboard:0.4.8'
+
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7'
+
+        implementation 'org.apache.commons:commons-math3:3.6.1'
+
+        implementation 'org.openftc:apriltag:1.1.1'
+}
